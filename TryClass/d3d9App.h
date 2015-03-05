@@ -1,8 +1,7 @@
 /****************************************************
 *    Author: Tianhao Wang
-*    E-mail: wanglingdebian@gmail.com   
 *    Date:   2015-03-05   
-*    Desc:   Ò»¸öÍ¨ÓÃµÄd3d9Àà£¬Ä£·ÂÁúÊéµÚ¶ş°æÍê³É
+*    Desc:   ä¸€ä¸ªé€šç”¨çš„d3d9ç±»ï¼Œæ¨¡ä»¿é¾™ä¹¦ç¬¬äºŒç‰ˆå®Œæˆ
 *****************************************************/   
 #ifndef _D3D9APP_
 #define _D3D9APP_
@@ -16,24 +15,24 @@ public:
     d3d9App(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, DWORD vertexProc);
     virtual ~d3d9App();
 
-    // Direct3DµÄ³õÊ¼»¯
+    // Direct3Dçš„åˆå§‹åŒ–
     virtual void InitD3D();
-    // WindowsÖ÷´°¿ÚµÄ³õÊ¼»¯
+    // Windowsä¸»çª—å£çš„åˆå§‹åŒ–
     virtual void InitWindow();
-    // ÏûÏ¢´¦Àí
+    // æ¶ˆæ¯å¤„ç†
     virtual LRESULT MsgProc(UINT msg, WPARAM wParam, LPARAM lParam);
-    // ÏûÏ¢Á÷µÄ²é¿´¼°´¦Àí
+    // æ¶ˆæ¯æµçš„æŸ¥çœ‹åŠå¤„ç†
     virtual int MsgLoop();
 
-    // DrawSceneÉùÃ÷Îª´¿Ğéº¯Êı£¬±ØĞëÔÚ¼Ì³ĞÊ±×ÔĞĞ¶¨Òå
+    // DrawSceneå£°æ˜ä¸ºçº¯è™šå‡½æ•°ï¼Œå¿…é¡»åœ¨ç»§æ‰¿æ—¶è‡ªè¡Œå®šä¹‰
     virtual void DrawScene() = 0;
 protected:
-    D3DDEVTYPE m_devType;          // Çı¶¯ÀàĞÍ
-    DWORD m_vertexProc;            // ¶¨µã»º´æ
-    HINSTANCE m_appInst;           // ³ÌĞò¾ä±úµÄ¿½±´
-    HWND m_mainWnd;                // ´°¿Ú¾ä±ú
+    D3DDEVTYPE m_devType;          // é©±åŠ¨ç±»å‹
+    DWORD m_vertexProc;            // å®šç‚¹ç¼“å­˜
+    HINSTANCE m_appInst;           // ç¨‹åºå¥æŸ„çš„æ‹·è´
+    HWND m_mainWnd;                // çª—å£å¥æŸ„
     D3DPRESENT_PARAMETERS m_d3dPP;
-    std::string m_winTitle;        // ³ÌĞò±êÌâ
+    std::string m_winTitle;        // ç¨‹åºæ ‡é¢˜
 };
 
 extern LPDIRECT3D9 g_pd3dObject;
