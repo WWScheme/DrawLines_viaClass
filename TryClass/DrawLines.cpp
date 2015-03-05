@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, int)
     return g_d3d9App->MsgLoop();
 }
 
-// 紧接着通用类的初始化之后进步一初始化，先创建ID3DLine对象，再指定顶点坐标
+// 初始化父类之后再初始化子类，首先创建ID3DLine对象，然后再指定顶点坐标
 DrawLines::DrawLines(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, DWORD vertexProc)
     : d3d9App(hInstance, winTitle, devType, vertexProc)
 {
@@ -49,7 +49,7 @@ DrawLines::~DrawLines()
     delete m_pLineArr;
 }
 
-// 负责绘制的成员函数总是需要自行定义
+// 负责绘制的成员函数总是需要子类自行定义
 void DrawLines::DrawScene()
 {
     g_pd3dDevice->Clear(0, 0, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
