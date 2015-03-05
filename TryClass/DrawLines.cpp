@@ -1,12 +1,11 @@
 /****************************************************
 *    Author: Tianhao Wang
-*    E-mail: wanglingdebian@gmail.com   
 *    Date:   2015-03-05   
-*    Desc:   Í¨¹ý¼Ì³ÐÒ»¸öÍ¨ÓÃµÄd3d9ÀàÀ´ÊµÏÖ»­Ïß³ÌÐò
+*    Desc:   é€šè¿‡ç»§æ‰¿ä¸€ä¸ªé€šç”¨çš„d3d9ç±»æ¥å®žçŽ°ç”»çº¿ç¨‹åº
 *****************************************************/   
 #include "d3d9App.h"
 
-// ¼Ì³ÐÍ¨ÓÃµÄd3d9AppÀà£¬Ìí¼ÓÁË¶¥µãÖ¸ÕëºÍID3DXLine*³ÉÔ±
+// ç»§æ‰¿é€šç”¨çš„d3d9Appç±»ï¼Œæ·»åŠ äº†é¡¶ç‚¹æŒ‡é’ˆå’ŒID3DXLine*æˆå‘˜
 class DrawLines : public d3d9App {
 public:
 	DrawLines(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, DWORD vertexProc);
@@ -18,7 +17,7 @@ private:
 	D3DXVECTOR2* m_pLineArr;
 };
 
-// Ö÷º¯Êý
+// ä¸»å‡½æ•°
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, int)
 {
 	DrawLines app(hInstance, "DrawLines", D3DDEVTYPE_HAL, D3DCREATE_HARDWARE_VERTEXPROCESSING);
@@ -27,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, int)
 	return g_d3d9App->MsgLoop();
 }
 
-// ½ô½Ó×ÅÍ¨ÓÃÀàµÄ³õÊ¼»¯Ö®ºó½ø²½Ò»³õÊ¼»¯£¬ÏÈ´´½¨ID3DLine¶ÔÏó£¬ÔÙÖ¸¶¨¶¥µã×ø±ê
+// ç´§æŽ¥ç€é€šç”¨ç±»çš„åˆå§‹åŒ–ä¹‹åŽè¿›æ­¥ä¸€åˆå§‹åŒ–ï¼Œå…ˆåˆ›å»ºID3DLineå¯¹è±¡ï¼Œå†æŒ‡å®šé¡¶ç‚¹åæ ‡
 DrawLines::DrawLines(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, DWORD vertexProc)
 	: d3d9App(hInstance, winTitle, devType, vertexProc)
 {
@@ -50,7 +49,7 @@ DrawLines::~DrawLines()
 	delete m_pLineArr;
 }
 
-// ¸ºÔð»æÖÆµÄ³ÉÔ±º¯Êý×ÜÊÇÐèÒª×ÔÐÐ¶¨Òå
+// è´Ÿè´£ç»˜åˆ¶çš„æˆå‘˜å‡½æ•°æ€»æ˜¯éœ€è¦è‡ªè¡Œå®šä¹‰
 void DrawLines::DrawScene()
 {
 	g_pd3dDevice->Clear(0, 0, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
