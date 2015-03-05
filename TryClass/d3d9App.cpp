@@ -1,8 +1,7 @@
 /****************************************************
 *    Author: Tianhao Wang
-*    E-mail: wanglingdebian@gmail.com   
 *    Date:   2015-03-05   
-*    Desc:   Ò»¸öÍ¨ÓÃµÄd3d9Àà£¬Ä£·ÂÁúÊéµÚ¶ş°æÍê³É
+*    Desc:   ä¸€ä¸ªé€šç”¨çš„d3d9ç±»ï¼Œæ¨¡ä»¿é¾™ä¹¦ç¬¬äºŒç‰ˆå®Œæˆ
 *****************************************************/   
 #include "d3d9App.h"
 
@@ -10,7 +9,7 @@ LPDIRECT3D9 g_pd3dObject = 0;
 LPDIRECT3DDEVICE9 g_pd3dDevice = 0;
 d3d9App* g_d3d9App = 0;
 
-// »Øµ÷º¯Êı£¬d3d9AppÀà´æÔÚÔòµ÷ÓÃ³ÉÔ±º¯Êı£¬·ñÔò±ãµ÷ÓÃÄ¬ÈÏµÄDefWindowProc
+// å›è°ƒå‡½æ•°ï¼Œd3d9Appç±»å­˜åœ¨åˆ™è°ƒç”¨æˆå‘˜å‡½æ•°ï¼Œå¦åˆ™ä¾¿è°ƒç”¨é»˜è®¤çš„DefWindowProc
 LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	if (g_d3d9App != 0)
@@ -32,16 +31,16 @@ d3d9App::d3d9App(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, 
     InitD3D();
 }
 
-// ³õÊ¼»¯D3D
+// åˆå§‹åŒ–D3D
 void d3d9App::InitD3D()
 {
-	// ´´½¨IDirect3D9¶ÔÏó
+	// åˆ›å»ºIDirect3D9å¯¹è±¡
     if (FAILED(g_pd3dObject = Direct3DCreate9(D3D_SDK_VERSION))) {
         MessageBox(0, "Direct3DCreate9 FAILED", 0, 0);
         PostQuitMessage(0);
     }
 
-	// ÌîĞ´D3DPRESENT_PARAMETERS½á¹¹Ìå
+	// å¡«å†™D3DPRESENT_PARAMETERSç»“æ„ä½“
     m_d3dPP.BackBufferCount    = 1;
     m_d3dPP.BackBufferFormat   = D3DFMT_UNKNOWN;
     m_d3dPP.MultiSampleType    = D3DMULTISAMPLE_NONE;
@@ -50,7 +49,7 @@ void d3d9App::InitD3D()
     m_d3dPP.hDeviceWindow      = m_mainWnd;
     m_d3dPP.Windowed           = true;
 
-	// ´´½¨IDirect3DDevice¶ÔÏó
+	// åˆ›å»ºIDirect3DDeviceå¯¹è±¡
     if (FAILED(g_pd3dObject->CreateDevice(D3DADAPTER_DEFAULT,
                                           m_devType,
                                           m_mainWnd,
@@ -62,7 +61,7 @@ void d3d9App::InitD3D()
     }
 }
 
-// ÏûÏ¢´¦Àí
+// æ¶ˆæ¯å¤„ç†
 LRESULT d3d9App::MsgProc(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
@@ -76,7 +75,7 @@ LRESULT d3d9App::MsgProc(UINT msg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(m_mainWnd, msg, wParam, lParam);
 }
 
-// É¾³ı´´½¨µÄ½Ó¿Ú
+// åˆ é™¤åˆ›å»ºçš„æ¥å£
 d3d9App::~d3d9App()
 {
     if (g_pd3dObject)
@@ -85,57 +84,57 @@ d3d9App::~d3d9App()
         g_pd3dDevice->Release();
 }
 
-// ³õÊ¼»¯Windows´°¿Ú
+// åˆå§‹åŒ–Windowsçª—å£
 void d3d9App::InitWindow()
 {
-	std::string winClass("MainWindows");	// ´°¿ÚÀàÃû
+	std::string winClass("MainWindows");	// çª—å£ç±»å
     WNDCLASS wc;
-    wc.style         = 0;       // ´°¿Ú·ç¸ñ£¬´Ë´¦ÎªÈ±Ê¡ÀàĞÍ
-    wc.lpfnWndProc   = WinProc; // Ñ¡Ôñ¸Ã´°¿ÚµÄÏûÏ¢´¦Àíº¯Êı
-    wc.cbClsExtra    = 0;       // ´°¿ÚÀàÎŞÀ©Õ¹
-    wc.cbWndExtra    = 0;       // ´°¿ÚÊµÀıÎŞÀ©Õ¹
+    wc.style         = 0;       // çª—å£é£æ ¼ï¼Œæ­¤å¤„ä¸ºç¼ºçœç±»å‹
+    wc.lpfnWndProc   = WinProc; // é€‰æ‹©è¯¥çª—å£çš„æ¶ˆæ¯å¤„ç†å‡½æ•°
+    wc.cbClsExtra    = 0;       // çª—å£ç±»æ— æ‰©å±•
+    wc.cbWndExtra    = 0;       // çª—å£å®ä¾‹æ— æ‰©å±•
 	wc.hInstance     = m_appInst;
-    wc.hIcon         = LoadIcon(0, IDI_APPLICATION);       // ´°¿ÚµÄ×îĞ¡»¯Í¼±êÎªÈ±Ê¡
-    wc.hCursor       = LoadCursor(0, IDC_ARROW);           // ²ÉÓÃ¼ıÍ·¹â±ê
-    wc.hbrBackground = (HBRUSH)(GetStockObject(WHITE_BRUSH)); // ´°¿Ú±³¾°Îª°×É«
-    wc.lpszMenuName  = 0;                                  // ´°¿ÚÎŞ²Ëµ¥
-    wc.lpszClassName = winClass.c_str();                      // ´°¿ÚÀàÃû
+    wc.hIcon         = LoadIcon(0, IDI_APPLICATION);       // çª—å£çš„æœ€å°åŒ–å›¾æ ‡ä¸ºç¼ºçœ
+    wc.hCursor       = LoadCursor(0, IDC_ARROW);           // é‡‡ç”¨ç®­å¤´å…‰æ ‡
+    wc.hbrBackground = (HBRUSH)(GetStockObject(WHITE_BRUSH)); // çª—å£èƒŒæ™¯ä¸ºç™½è‰²
+    wc.lpszMenuName  = 0;                                  // çª—å£æ— èœå•
+    wc.lpszClassName = winClass.c_str();                      // çª—å£ç±»å
 
-    // ×¢²á´°¿Ú
+    // æ³¨å†Œçª—å£
     if (FAILED(RegisterClass(&wc))) {
         MessageBox(0, "RegisterClass FAILED", 0, 0);
         PostQuitMessage(0);
     }
-    // ´´½¨´°¿ÚÊµÀı
-	m_mainWnd = CreateWindow(winClass.c_str(),    // ´°¿ÚÀàÃû
-                             m_winTitle.c_str(),  // ´°¿Ú±êÌâ
-                             WS_OVERLAPPEDWINDOW, // ´°¿Ú·ç¸ñ
-                             CW_USEDEFAULT,       // ×óÉÏ½Ç×ø±ê
+    // åˆ›å»ºçª—å£å®ä¾‹
+	m_mainWnd = CreateWindow(winClass.c_str(),    // çª—å£ç±»å
+                             m_winTitle.c_str(),  // çª—å£æ ‡é¢˜
+                             WS_OVERLAPPEDWINDOW, // çª—å£é£æ ¼
+                             CW_USEDEFAULT,       // å·¦ä¸Šè§’åæ ‡
                              CW_USEDEFAULT,
-                             CW_USEDEFAULT,       // ¸ßºÍ¿í
+                             CW_USEDEFAULT,       // é«˜å’Œå®½
                              CW_USEDEFAULT,
-                             0,                // ÎŞ¸¸´°¿Ú
-                             0,                // ÎŞ×Ó²Ëµ¥
-                             m_appInst,           // ´´½¨¸Ã´°¿ÚµÄ³ÌĞò¾ä±ú
-                             0);               // ²»Ê¹ÓÃ¸ÃÖµ
+                             0,                // æ— çˆ¶çª—å£
+                             0,                // æ— å­èœå•
+                             m_appInst,           // åˆ›å»ºè¯¥çª—å£çš„ç¨‹åºå¥æŸ„
+                             0);               // ä¸ä½¿ç”¨è¯¥å€¼
 	if (FAILED(m_mainWnd)) {
         MessageBox(0, "CreateWindow FAILED", 0, 0);
         PostQuitMessage(0);
     }
 
-    ShowWindow(m_mainWnd, SW_SHOW); // ÏÔÊ¾´°¿Ú
-    UpdateWindow(m_mainWnd);        // »æÖÆÓÃ»§Çø
+    ShowWindow(m_mainWnd, SW_SHOW); // æ˜¾ç¤ºçª—å£
+    UpdateWindow(m_mainWnd);        // ç»˜åˆ¶ç”¨æˆ·åŒº
 }
 
-// ÏûÏ¢Ñ­»·£¬¼ì²éÓÉÊäÈëÉè±¸´«ÈëµÄĞÅÏ¢
+// æ¶ˆæ¯å¾ªç¯ï¼Œæ£€æŸ¥ç”±è¾“å…¥è®¾å¤‡ä¼ å…¥çš„ä¿¡æ¯
 int d3d9App::MsgLoop()
 {
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&msg); // ×ª»¯ÏûÏ¢¶Ô
-			DispatchMessage(&msg);  // ½«ÏûÏ¢´«µİ¸ø»Øµ÷º¯Êı
+			TranslateMessage(&msg); // è½¬åŒ–æ¶ˆæ¯å¯¹
+			DispatchMessage(&msg);  // å°†æ¶ˆæ¯ä¼ é€’ç»™å›è°ƒå‡½æ•°
 		} else {
 			DrawScene();
 		}
