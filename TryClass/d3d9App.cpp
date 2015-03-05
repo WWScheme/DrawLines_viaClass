@@ -12,10 +12,10 @@ d3d9App* g_d3d9App = 0;
 // 回调函数，d3d9App类存在则调用成员函数，否则便调用默认的DefWindowProc
 LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (g_d3d9App != 0)
-		return g_d3d9App->MsgProc(msg, wParam, lParam);
-	else
-		return DefWindowProc(hwnd, msg, wParam, lParam);
+    if (g_d3d9App != 0)
+        return g_d3d9App->MsgProc(msg, wParam, lParam);
+    else
+        return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 d3d9App::d3d9App(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, DWORD vertexProc)
@@ -34,13 +34,13 @@ d3d9App::d3d9App(HINSTANCE hInstance, std::string winTitle, D3DDEVTYPE devType, 
 // 初始化D3D
 void d3d9App::InitD3D()
 {
-	// 创建IDirect3D9对象
+    // 创建IDirect3D9对象
     if (FAILED(g_pd3dObject = Direct3DCreate9(D3D_SDK_VERSION))) {
         MessageBox(0, "Direct3DCreate9 FAILED", 0, 0);
         PostQuitMessage(0);
     }
 
-	// 填写D3DPRESENT_PARAMETERS结构体
+    // 填写D3DPRESENT_PARAMETERS结构体
     m_d3dPP.BackBufferCount    = 1;
     m_d3dPP.BackBufferFormat   = D3DFMT_UNKNOWN;
     m_d3dPP.MultiSampleType    = D3DMULTISAMPLE_NONE;
@@ -49,7 +49,7 @@ void d3d9App::InitD3D()
     m_d3dPP.hDeviceWindow      = m_mainWnd;
     m_d3dPP.Windowed           = true;
 
-	// 创建IDirect3DDevice对象
+    // 创建IDirect3DDevice对象
     if (FAILED(g_pd3dObject->CreateDevice(D3DADAPTER_DEFAULT,
                                           m_devType,
                                           m_mainWnd,
@@ -64,15 +64,15 @@ void d3d9App::InitD3D()
 // 消息处理
 LRESULT d3d9App::MsgProc(UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch (msg) {
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			return 0;
-		case WM_CLOSE:
-			DestroyWindow(m_mainWnd);
-			return 0;
-	}
-	return DefWindowProc(m_mainWnd, msg, wParam, lParam);
+    switch (msg) {
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+        case WM_CLOSE:
+            DestroyWindow(m_mainWnd);
+            return 0;
+    }
+    return DefWindowProc(m_mainWnd, msg, wParam, lParam);
 }
 
 // 删除创建的接口
@@ -87,17 +87,17 @@ d3d9App::~d3d9App()
 // 初始化Windows窗口
 void d3d9App::InitWindow()
 {
-	std::string winClass("MainWindows");	// 窗口类名
+    std::string winClass("MainWindows");    // 窗口类名
     WNDCLASS wc;
     wc.style         = 0;       // 窗口风格，此处为缺省类型
     wc.lpfnWndProc   = WinProc; // 选择该窗口的消息处理函数
     wc.cbClsExtra    = 0;       // 窗口类无扩展
     wc.cbWndExtra    = 0;       // 窗口实例无扩展
-	wc.hInstance     = m_appInst;
-    wc.hIcon         = LoadIcon(0, IDI_APPLICATION);       // 窗口的最小化图标为缺省
-    wc.hCursor       = LoadCursor(0, IDC_ARROW);           // 采用箭头光标
+    wc.hInstance     = m_appInst;
+    wc.hIcon         = LoadIcon(0, IDI_APPLICATION);          // 窗口的最小化图标为缺省
+    wc.hCursor       = LoadCursor(0, IDC_ARROW);              // 采用箭头光标
     wc.hbrBackground = (HBRUSH)(GetStockObject(WHITE_BRUSH)); // 窗口背景为白色
-    wc.lpszMenuName  = 0;                                  // 窗口无菜单
+    wc.lpszMenuName  = 0;                                     // 窗口无菜单
     wc.lpszClassName = winClass.c_str();                      // 窗口类名
 
     // 注册窗口
@@ -106,18 +106,18 @@ void d3d9App::InitWindow()
         PostQuitMessage(0);
     }
     // 创建窗口实例
-	m_mainWnd = CreateWindow(winClass.c_str(),    // 窗口类名
+    m_mainWnd = CreateWindow(winClass.c_str(),    // 窗口类名
                              m_winTitle.c_str(),  // 窗口标题
                              WS_OVERLAPPEDWINDOW, // 窗口风格
                              CW_USEDEFAULT,       // 左上角坐标
                              CW_USEDEFAULT,
                              CW_USEDEFAULT,       // 高和宽
                              CW_USEDEFAULT,
-                             0,                // 无父窗口
-                             0,                // 无子菜单
+                             0,                   // 无父窗口
+                             0,                   // 无子菜单
                              m_appInst,           // 创建该窗口的程序句柄
-                             0);               // 不使用该值
-	if (FAILED(m_mainWnd)) {
+                             0);                  // 不使用该值
+    if (FAILED(m_mainWnd)) {
         MessageBox(0, "CreateWindow FAILED", 0, 0);
         PostQuitMessage(0);
     }
@@ -129,16 +129,16 @@ void d3d9App::InitWindow()
 // 消息循环，检查由输入设备传入的信息
 int d3d9App::MsgLoop()
 {
-	MSG msg;
-	ZeroMemory(&msg, sizeof(msg));
-	while (msg.message != WM_QUIT) {
-		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&msg); // 转化消息对
-			DispatchMessage(&msg);  // 将消息传递给回调函数
-		} else {
-			DrawScene();
-		}
-	}
+    MSG msg;
+    ZeroMemory(&msg, sizeof(msg));
+    while (msg.message != WM_QUIT) {
+        if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&msg); // 转化消息对
+            DispatchMessage(&msg);  // 将消息传递给回调函数
+        } else {
+            DrawScene();
+        }
+    }
 
-	return 0;
+    return 0;
 }
