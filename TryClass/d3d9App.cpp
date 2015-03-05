@@ -9,7 +9,7 @@ LPDIRECT3D9 g_pd3dObject = 0;
 LPDIRECT3DDEVICE9 g_pd3dDevice = 0;
 d3d9App* g_d3d9App = 0;
 
-// 回调函数，d3d9App类存在则调用成员函数，否则便调用默认的DefWindowProc
+// 回调函数，弱d3d9App存在对象，则调用成员函数，否则就调用默认的DefWindowProc
 LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (g_d3d9App != 0)
@@ -75,7 +75,7 @@ LRESULT d3d9App::MsgProc(UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(m_mainWnd, msg, wParam, lParam);
 }
 
-// 删除创建的接口
+// 删除之前创建的的对象
 d3d9App::~d3d9App()
 {
     if (g_pd3dObject)
